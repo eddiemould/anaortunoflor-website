@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Decide which file to load
     const targetPath = (path === "" || path === "/") ? "index.html" : path;
 
-    fetch(targetPath)
+    fetch("./" + targetPath)
       .then(res => {
         if (!res.ok) throw new Error("Page not found");
         return res.text();
