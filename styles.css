@@ -289,6 +289,18 @@ main h2 {
   right: 10px;
 }
 
+#mobile-logo {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#mobile-logo-gif {
+  width: 100px;
+  filter: invert(1);
+}
+
 #menuToggle {
   all: unset;
   font-weight: 800;
@@ -304,6 +316,23 @@ main h2 {
     left: -100%; /* Hide sidebar by default */
     height: 100%;
     z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .sidebar ul {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .sidebar ul li {
+    font-size: 2rem;
+    margin-bottom: 1.75rem;
   }
 
   .sidebar.open {
@@ -320,10 +349,18 @@ main h2 {
     z-index: 1100; /* On top */
   }
 
+  #mobile-logo {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100; /* On top */
+  }
+
   main {
     display: block;
 
-    padding-top: 3rem;
+    padding-top: 4rem;
 
     height: auto;
     min-height: 100vh;
@@ -334,7 +371,7 @@ main h2 {
   }
 
   #logo-container {
-    width: 300px;
+    display: none;
   }
 }
 
@@ -373,11 +410,20 @@ main h2 {
   border: solid 1px #4b6ac1;
 }
 
-.project-item p {
+.project-item-header {
   margin-top: 5px;
   font-size: 0.8rem;
   color: #20272d;
   font-family: 'Mr Eaves XL';
+  font-weight: 500;
+}
+
+.project-item-sub-header {
+  font-size: 0.7rem;
+  color: #20272d;
+  font-family: 'Mr Eaves XL';
+  font-style: italic;
+  font-weight: 300;
 }
 
 @media (max-width: 1024px) {
@@ -400,10 +446,9 @@ main h2 {
 
 .image-column {
   width: 100%;
-  max-width: 1450px;
-  /* margin: 0 auto; center images */
+  max-width: 1600px;
   padding: 2rem 1rem;
-  padding-right: 600px; /* stop bumping text */
+  padding-right: 475px; /* stop bumping text */
 }
 
 .image-column img {
@@ -421,17 +466,26 @@ main h2 {
 .projects-double, .projects-triple, .projects-four {
   display: flex;
   gap: 1rem;
+  justify-content: center;
 }
 
 .projects-double img {
-  width: calc(50% - 0.5rem); /* mobile fix */
+  width: calc(50% - 0.5rem);
+}
+
+.projects-triple img {
+  width: calc(33% - 0.55rem);
+}
+
+.projects-four img {
+  width: calc(25% - 0.5rem);
 }
 
 .text-wrapper {
   position: fixed;
   top: 75px;
-  right: 100px;
-  width: 500px;
+  right: 60px;
+  width: 400px;
   pointer-events: none;
   z-index: 10;
 }
@@ -495,14 +549,6 @@ main h2 {
 
   .text-panel-italic {
     font-size: 0.65rem;
-  }
-
-  .projects-triple img {
-  width: calc(32.6% - 0.5rem); /* mobile fix */
-  }
-
-  .projects-four img {
-    width: calc(25% - 0.5rem); /* mobile fix */
   }
 }
 
@@ -657,4 +703,50 @@ main h2 {
 #colophon-text a:hover {
   color: #4b6ac1;
   text-decoration: underline 2px #172b70;
+}
+
+/* LANDING PAGE */
+
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  min-width: 300px;
+  min-height: 300px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+  padding: 5rem;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+
+  .slideshow {
+    padding-bottom: 7rem;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .slide {
+    padding: 0;
+  }
+
 }

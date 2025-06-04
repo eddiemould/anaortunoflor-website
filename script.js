@@ -7,12 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initially hide the content (set opacity to 0)
   mainContent.style.opacity = 0;
 
-  // Get the top-level folder from the path (e.g. "projects" from "#/projects/project-a.html")
   function getSectionFromPath(path) {
-    // Special case: treat "#/" (home) as "projects"
-    if (path === "#/" || path === "" || path === "#") {
-      return "projects";
-    }
     return path.replace(/^#\/|\/index\.html$/g, "").split("/")[0] || "";
   }
 
@@ -37,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mainContent.style.opacity = 0;
 
     // Decide which file to load
-    const targetPath = (path === "" || path === "/") ? "index.html" : path;
+    const targetPath = path === "" || path === "/" ? "index.html" : path.replace(/^\/+/, "");
 
     fetch("./" + targetPath)
       .then(res => {
@@ -55,6 +50,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         highlightActiveLink(); // Re-run in case of internal nav
         mainContent.style.opacity = 1;
+
+        const slides = mainContent.querySelectorAll('.slide');
+        if (slides.length > 0) {
+          let current = 0;
+
+          slides[current].classList.add('active');
+
+          setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+          }, 8000);
+        }
+
       })
       .catch(() => {
         mainContent.innerHTML = "<h2>404</h2><p>Page not found.</p>";
